@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logs for {{ short_key }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+        h2 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background: #74ebd5;
+            color: #333;
+        }
+        a {
+            display: inline-block;
+            margin-top: 15px;
+            text-decoration: none;
+            color: #0077cc;
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>📑 Logs for /{{ short_key }}</h2>
+    <table>
+        <tr>
+            <th>IP Address</th>
+            <th>User Agent</th>
+            <th>Timestamp</th>
+        </tr>
+        {% for ip, ua, ts in data %}
+        <tr>
+            <td>{{ ip }}</td>
+            <td><pre>{{ ua }}</pre></td>
+            <td>{{ ts }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="/dashboard">⬅ Back to Dashboard</a>
+</body>
+</html>

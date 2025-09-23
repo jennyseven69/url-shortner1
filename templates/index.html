@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>URL Shortener</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            text-align: center;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .container img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #74ebd5;
+        }
+
+        button, .link-btn {
+            display: inline-block;
+            background-color: #74ebd5;
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-decoration: none;
+            margin: 5px;
+        }
+
+        button:hover, .link-btn:hover {
+            background-color: #67d8c1;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+
+        .result a {
+            color: #0077cc;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .result a:hover {
+            text-decoration: underline;
+        }
+
+        .dashboard-link {
+            display: block;
+            margin-top: 20px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Illustration -->
+        <img src="https://kinsta.com/wp-content/uploads/2023/12/create-url-shortener-with-python-1536x768.png" alt="URL Shortener Illustration">
+
+        <h2>🔗 URL Shortener</h2>
+        <form action="/shorten" method="post">
+            <input type="text" name="original_url" placeholder="Enter your URL (e.g. https://example.com)" required>
+            <button type="submit">Shorten URL</button>
+        </form>
+
+        {% if short_key %}
+        <div class="result">
+            <p>Shortened URL:
+                <a href="{{ short_url }}" id="shortUrl" target="_blank">{{ short_url }}</a>
+            </p>
+            <button onclick="copyToClipboard()">Copy</button>
+            <a href="/logs/{{ short_key }}" class="link-btn">📑 View Logs</a>
+            <a href="/share/{{ short_key }}" class="link-btn">🔗 Share</a>
+        </div>
+        {% endif %}
+
+        <a class="dashboard-link" href="/dashboard">📊 View Dashboard</a>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const shortUrlEl = document.getElementById("shortUrl");
+            if (!shortUrlEl) return;
+            const shortUrl = shortUrlEl.href;
+            navigator.clipboard.writeText(shortUrl).then(() => {
+                alert("Copied to clipboard!");
+            }).catch(() => {
+                alert("Failed to copy.");
+            });
+        }
+    </script>
+</body>
+</html>

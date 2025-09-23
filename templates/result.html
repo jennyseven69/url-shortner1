@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Shortened URL</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #ACB6E5 0%, #74ebd5 100%);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            text-align: center;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        h2 {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        a#shortUrl {
+            display: inline-block;
+            font-size: 18px;
+            color: #007bff;
+            word-break: break-all;
+            margin-bottom: 20px;
+        }
+
+        button, .link-btn {
+            display: inline-block;
+            background-color: #74ebd5;
+            border: none;
+            color: white;
+            padding: 10px 16px;
+            font-size: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin: 6px;
+            text-decoration: none;
+        }
+
+        button:hover, .link-btn:hover {
+            background-color: #67d8c1;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #555;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Shortened URL 🎉</h2>
+        <p><a href="{{ short_url }}" id="shortUrl" target="_blank">{{ short_url }}</a></p>
+        
+        <button onclick="copyToClipboard()">Copy to Clipboard</button>
+        <a href="/dashboard" class="link-btn">📊 View Dashboard</a>
+        <a href="/logs/{{ short_key }}" class="link-btn">📑 View Logs</a>
+        
+        <a href="/" class="back-link">Shorten another URL</a>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const shortUrl = document.getElementById("shortUrl").href;
+            navigator.clipboard.writeText(shortUrl).then(() => {
+                alert("Copied to clipboard!");
+            }).catch(() => {
+                alert("Failed to copy.");
+            });
+        }
+    </script>
+</body>
+</html>
