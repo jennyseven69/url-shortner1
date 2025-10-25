@@ -80,9 +80,9 @@
             {% for ip, ua, country, region, city, ts in data %}
             <tr>
                 <td>{{ ip }}</td>
-                <td>{{ country or '-' }}</td>
-                <td>{{ region or '-' }}</td>
-                <td>{{ city or '-' }}</td>
+                <td>{{ country or 'Unknown' }}</td>
+                <td>{{ region or 'Unknown' }}</td>
+                <td>{{ city or 'Unknown' }}</td>
                 <td><pre>{{ ua }}</pre></td>
                 <td>{{ ts }}</td>
             </tr>
