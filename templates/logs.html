@@ -6,57 +6,93 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            padding: 20px;
+            background: linear-gradient(135deg, #f4f4f4 0%, #e9f7ff 100%);
+            padding: 30px;
+            color: #333;
         }
         h2 {
-            color: #333;
+            color: #222;
+            margin-bottom: 15px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
         }
         th, td {
-            padding: 10px;
+            padding: 10px 12px;
             text-align: left;
+            border: 1px solid #ddd;
         }
         th {
             background: #74ebd5;
             color: #333;
+            font-weight: 600;
         }
-        a {
-            display: inline-block;
-            margin-top: 15px;
-            text-decoration: none;
-            color: #0077cc;
+        tr:nth-child(even) {
+            background: #f9f9f9;
         }
         pre {
             white-space: pre-wrap;
             word-wrap: break-word;
             margin: 0;
+            font-size: 13px;
+            color: #444;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #0077cc;
+            font-weight: 500;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .no-data {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
         }
     </style>
 </head>
 <body>
-    <h2>📑 Logs for /{{ short_key }}</h2>
-    <table>
-        <tr>
-            <th>IP Address</th>
-            <th>User Agent</th>
-            <th>Timestamp</th>
-        </tr>
-        {% for ip, ua, ts in data %}
-        <tr>
-            <td>{{ ip }}</td>
-            <td><pre>{{ ua }}</pre></td>
-            <td>{{ ts }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-    <a href="/dashboard">⬅ Back to Dashboard</a>
+    <div class="container">
+        <h2>📍 Logs for /{{ short_key }}</h2>
+
+        {% if data %}
+        <table>
+            <tr>
+                <th>IP Address</th>
+                <th>Country</th>
+                <th>Region</th>
+                <th>City</th>
+                <th>User Agent</th>
+                <th>Timestamp</th>
+            </tr>
+            {% for ip, ua, country, region, city, ts in data %}
+            <tr>
+                <td>{{ ip }}</td>
+                <td>{{ country or '-' }}</td>
+                <td>{{ region or '-' }}</td>
+                <td>{{ city or '-' }}</td>
+                <td><pre>{{ ua }}</pre></td>
+                <td>{{ ts }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p class="no-data">No logs found for this short link yet.</p>
+        {% endif %}
+
+        <a href="/dashboard">⬅ Back to Dashboard</a>
+    </div>
 </body>
 </html>
